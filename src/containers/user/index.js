@@ -2,15 +2,17 @@ import { Menu } from 'antd';
 import { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
-import { get_allusers_data } from "./actions";
-const UserComponent = ({ users, usersLoading, userLoadingError, get_allusers_data }) => {
+import { get_allusers_data, set_selected_user } from "./actions";
+const UserComponent = ({ users, usersLoading, userLoadingError, selectedUser, get_allusers_data }) => {
     const dispatch = useDispatch();
-    console.log(users, usersLoading, userLoadingError);
     useEffect(() => {
         dispatch(get_allusers_data);
+        if (selectedUser) {
+            dispatch(set_selected_user(selectedUser));
+        }
     }, []);
     const loadAlbums = (user) => {
-        console.log(user);
+        dispatch(set_selected_user(user));
     };
     if (users) {
         return (
@@ -27,9 +29,9 @@ const UserComponent = ({ users, usersLoading, userLoadingError, get_allusers_dat
     }
 };
 
-const mapStateToProps = ({ userReducer: { users, userLoadingError, usersLoading } }) => {
+const mapStateToProps = ({ userReducer: { users, userLoadingError, usersLoading, selectedUser } }) => {
     return {
-        users, userLoadingError, usersLoading
+        users, userLoadingError, usersLoading, selectedUser
     };
 };
 

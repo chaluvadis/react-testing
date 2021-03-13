@@ -1,20 +1,29 @@
 import { Menu } from 'antd';
 import { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-import { UserOutlined } from "@ant-design/icons";
-import { get_allusers_data } from "./actions";
-const UserComponent = ({ users, usersLoading, userLoadingError, get_allusers_data }) => {
+import { BookOutlined } from "@ant-design/icons";
+import { get_albums_data, set_selected_album } from "./actions";
+const UserComponent = ({ albums, albumsLoading, albumsLoadingError, selectedAlbum, selectedUser }) => {
     const dispatch = useDispatch();
-    console.log(users, usersLoading, userLoadingError);
+    console.log(selectedAlbum);
     useEffect(() => {
-        dispatch(get_allusers_data);
-    }, []);
-    if (users) {
+        if (selectedUser) {
+            const { id } = selectedUser;
+            dispatch(get_albums_data(id));
+            if (selectedAlbum) {
+                dispatch(set_selected_album(selectedAlbum));
+            }
+        }
+    }, [selectedUser]);
+    const albumClick = (album) => {
+        dispatch(set_selected_album(album));
+    };
+    if (albums) {
         return (
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu theme={"light"} mode="inline" defaultSelectedKeys={[selectedAlbum ? selectedAlbum.id : '']}>
                 {
-                    users.map(user => <Menu.Item key={user.id} icon={<UserOutlined />}>
-                        {user.name}
+                    albums.map(album => <Menu.Item key={album.id} id={album.id} onClick={() => albumClick(album)} icon={<BookOutlined />}>
+                        {album.title}
                     </Menu.Item>)
                 }
             </Menu>
@@ -22,15 +31,13 @@ const UserComponent = ({ users, usersLoading, userLoadingError, get_allusers_dat
     } else {
         return (<></>);
     }
-
 };
 
-const mapStateToProps = ({ userReducer: { users, userLoadingError, usersLoading } }) => {
+const mapStateToProps = ({ albumsReducer: { albums, albumsLoading, albumsLoadingError, selectedAlbum },
+    userReducer: { selectedUser } }) => {
     return {
-        users, userLoadingError, usersLoading
+        albums, albumsLoading, albumsLoadingError, selectedAlbum, selectedUser
     };
 };
 
-const mapStateToActions = { get_allusers_data };
-
-export default connect(mapStateToProps, mapStateToActions)(UserComponent);
+export default connect(mapStateToProps)(UserComponent);

@@ -1,50 +1,32 @@
 import {
-    GET_ALLUSERS_STARTED, GET_ALLUSERS_FAILURE, GET_ALLUSERS_SUCCESS,
-    GET_USER_BY_ID_STARTED, GET_USER_BY_ID_SUCCESS, GET_USER_BY_ID_FAILURE
+    GET_ALBUMS_STARTED, GET_ALBUMS_FAILURE, GET_ALBUMS_SUCCESS, SET_SELECTED_ALBUM
 } from "./constants";
-export const get_allusers_data = () => {
+export const get_albums_data = (id) => {
     return async dispatch => {
         try {
-            dispatch(get_allusers_started());
-            const res = await fetch("https://jsonplaceholder.typicode.com/users");
+            dispatch(get_albums_started());
+            const res = await fetch(`https://jsonplaceholder.typicode.com/albums/?userId=${id}`);
             const data = await res.json();
-            dispatch(get_allusers_success(data));
+            dispatch(get_albums_success(data));
+            dispatch(set_selected_album(data[0]));
         } catch (error) {
-            dispatch(get_allusers_failed(error));
+            dispatch(get_albums_failed(error));
         }
     };
 };
 
-export const get_allusers_started = () => {
-    return { type: GET_ALLUSERS_STARTED };
+export const get_albums_started = () => {
+    return { type: GET_ALBUMS_STARTED };
 };
 
-export const get_allusers_failed = (error) => {
-    return { type: GET_ALLUSERS_FAILURE, payload: error };
+export const get_albums_failed = (error) => {
+    return { type: GET_ALBUMS_FAILURE, payload: error };
 };
 
-export const get_allusers_success = (data) => {
-    return { type: GET_ALLUSERS_SUCCESS, payload: data };
+export const get_albums_success = (data) => {
+    return { type: GET_ALBUMS_SUCCESS, payload: data };
 };
 
-export const get_user_by_id = (id) => {
-    return dispatch => {
-        dispatch(get_user_by_id_started());
-        return fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-            .then(res => res.json())
-            .then(data => get_user_by_id_success(data))
-            .catch(err => dispatch(get_user_by_id_failed(err)));
-    };
-};
-
-export const get_user_by_id_started = () => {
-    return { type: GET_USER_BY_ID_STARTED };
-};
-
-export const get_user_by_id_failed = (error) => {
-    return { type: GET_USER_BY_ID_FAILURE, payload: error };
-};
-
-export const get_user_by_id_success = (data) => {
-    return { type: GET_USER_BY_ID_SUCCESS, payload: data };
+export const set_selected_album = (data) => {
+    return { type: SET_SELECTED_ALBUM, payload: data };
 };

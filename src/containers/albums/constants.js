@@ -1,6 +1,5 @@
-export const GET_ALLUSERS_STARTED = 'containers/user/GET_ALLUSERS_STARTED';
-export const GET_ALLUSERS_SUCCESS = 'containers/user/GET_ALLUSERS_SUCCESS';
-export const GET_ALLUSERS_FAILURE = 'containers/user/GET_ALLUSERS_FAILURE';
-export const GET_USER_BY_ID_STARTED = 'containers/user/GET_USER_BY_ID_STARTED';
-export const GET_USER_BY_ID_SUCCESS = 'containers/user/GET_USER_BY_ID_SUCCESS';
-export const GET_USER_BY_ID_FAILURE = 'containers/user/GET_USER_BY_ID_FAILURE';
+export const GET_ALBUMS_STARTED = 'containers/albums/GET_ALBUMS_STARTED';
+export const GET_ALBUMS_FAILURE = 'containers/albums/GET_ALBUMS_FAILURE';
+export const GET_ALBUMS_SUCCESS = 'containers/albums/GET_ALBUMS_SUCCESS';
+export const SET_SELECTED_ALBUM = 'containers/user/SET_SELECTED_ALBUM';
+export const GET_SELECTED_ALBUM = 'containers/user/GET_SELECTED_ALBUM';

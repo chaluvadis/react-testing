@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
 import UserComponent from "./containers/user/index";
-
+import AlbumsComponent from "./containers/albums/index";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -22,8 +22,8 @@ function App() {
             minHeight: 280,
           }}
         >
-          Content
-          </Content>
+          <AlbumsComponent />
+        </Content>
       </Layout>
     </Layout>
   );

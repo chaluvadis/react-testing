@@ -1,48 +1,37 @@
 import {
-    GET_ALLUSERS_STARTED, GET_ALLUSERS_FAILURE, GET_ALLUSERS_SUCCESS,
-    GET_USER_BY_ID_STARTED, GET_USER_BY_ID_SUCCESS, GET_USER_BY_ID_FAILURE
+    GET_ALBUMS_STARTED, GET_ALBUMS_FAILURE, GET_ALBUMS_SUCCESS, SET_SELECTED_ALBUM
 } from "./constants";
 
 const defaultState = {
-    "users": [],
-    "usersLoading": false,
-    "userLoadingError": false,
-    "selectedUser": null,
-    "selectedUserLoading": false,
-    "selectedUserLoadingError": false
+    "albums": [],
+    "albumsLoading": false,
+    "albumsLoadingError": false,
+    "selectedAlbum": null
 };
 
-const userReducer = (state = defaultState, action) => {
+const albumsReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case GET_ALLUSERS_STARTED: return {
+        case GET_ALBUMS_STARTED: return {
             ...state,
-            usersLoading: true
+            albumsLoading: true
         };
-        case GET_ALLUSERS_SUCCESS: return {
+        case GET_ALBUMS_SUCCESS: return {
             ...state,
-            usersLoading: false,
-            users: action.payload
+            albumsLoading: false,
+            albums: action.payload
         };
-        case GET_ALLUSERS_FAILURE: return {
+        case GET_ALBUMS_FAILURE: return {
             ...state,
-            usersLoading: false,
-            useuserLoadingError: action.payload
+            albumsLoading: false,
+            albumsLoadingError: action.payload
         };
-        case GET_USER_BY_ID_STARTED: return {
+        case SET_SELECTED_ALBUM: return {
             ...state,
-            selectedUserLoading: true
-        };
-        case GET_USER_BY_ID_SUCCESS: return {
-            ...state,
-            selectedUser: action.payload
-        };
-        case GET_USER_BY_ID_FAILURE: return {
-            ...state,
-            selectedUserLoadingError: action.payload
+            selectedAlbum: action.payload
         };
         default:
             return state;
     }
 };
 
-export default userReducer;
+export default albumsReducer;

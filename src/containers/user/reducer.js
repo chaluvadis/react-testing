@@ -1,10 +1,12 @@
 import {
-    GET_ALLUSERS_STARTED, GET_ALLUSERS_FAILURE, GET_ALLUSERS_SUCCESS
+    GET_ALLUSERS_STARTED, GET_ALLUSERS_FAILURE, GET_ALLUSERS_SUCCESS,
+    SET_SELECTED_USER
 } from "./constants";
 
 const defaultState = {
     "users": [],
     "usersLoading": false,
+    "selectedUser": null,
     "userLoadingError": false
 };
 
@@ -23,6 +25,10 @@ const userReducer = (state = defaultState, action) => {
             ...state,
             usersLoading: false,
             useuserLoadingError: action.payload
+        };
+        case SET_SELECTED_USER: return {
+            ...state,
+            selectedUser: action.payload
         };
         default:
             return state;
