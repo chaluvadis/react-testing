@@ -9,14 +9,11 @@ const UserComponent = ({ users, usersLoading, userLoadingError, get_allusers_dat
     useEffect(() => {
         dispatch(get_allusers_data);
     }, []);
-    const loadAlbums = (user) => {
-        console.log(user);
-    };
     if (users) {
         return (
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                 {
-                    users.map(user => <Menu.Item key={user.id} onClick={() => loadAlbums(user)} icon={<UserOutlined />}>
+                    users.map(user => <Menu.Item key={user.id} icon={<UserOutlined />}>
                         {user.name}
                     </Menu.Item>)
                 }
@@ -25,6 +22,7 @@ const UserComponent = ({ users, usersLoading, userLoadingError, get_allusers_dat
     } else {
         return (<></>);
     }
+
 };
 
 const mapStateToProps = ({ userReducer: { users, userLoadingError, usersLoading } }) => {
